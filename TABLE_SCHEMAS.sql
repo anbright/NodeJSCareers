@@ -1,0 +1,49 @@
+CREATE TABLE PERSON(
+	Name VARCHAR(255) NOT NULL,
+	Job VARCHAR(255),
+	School VARCHAR(255),
+	PRIMARY KEY (Name)
+);
+
+CREATE TABLE COMPANY(
+	Name VARCHAR(255),
+	Rating DECIMAL,
+	PRIMARY KEY (Name)
+);
+
+CREATE TABLE INDUSTRY(
+	Name VARCHAR(255),
+	Type VARCHAR(255),
+	PRIMARY KEY (Name)
+);
+
+CREATE TABLE PART(
+	IndustryName VARCHAR(255),
+	CompanyName VARCHAR(255),
+	PRIMARY KEY (IndustryName, CompanyName),
+	FOREIGN KEY (IndustryName) REFERENCES INDUSTRY(Name),
+	FOREIGN KEY (CompanyName) REFERENCES COMPANY(Name)
+);
+
+CREATE TABLE INTEREST(
+	PersonName VARCHAR(255),
+	CompanyName VARCHAR(255),
+	PRIMARY KEY (PersonName, CompanyName),
+	FOREIGN KEY (PersonName) REFERENCES PERSON(Name),
+	FOREIGN KEY(CompanyName) REFERENCES COMPANY(Name)
+);
+
+CREATE TABLE REASON(
+	PersonName VARCHAR(255),
+	Reason VARCHAR(25),
+	PRIMARY KEY (PersonName, Reason),
+	CHECK (Reason='Helping' OR Reason='GettingHelp')
+);
+
+CREATE TABLE JOB(
+	Job VARCHAR(255) NOT NULL,
+	Type VARCHAR(255),
+	CompanyName VARCHAR(255),
+	PRIMARY KEY (Job, CompanyName)
+	FOREIGN KEY (CompanyName) REFERENCES COMPANY(Name)
+);
