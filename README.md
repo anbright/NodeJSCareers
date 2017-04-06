@@ -13,3 +13,8 @@ connection string:
 sqlplus 'cis450project@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=cis450project.creb8qtnnbvb.us-west-2.rds.amazonaws.com)(PORT=1521))(CONNECT_DATA=(SID=DBPROJ)))';
 
 SQL Files are in Github Repo
+
+-----
+Milestone 4:
+
+For Milestone 4, we used Django and Python to come up with a basic prototype/MVP of what our project would look like. We implemented a signup and registration system for students. We also implemented a login and profile view for students. Finally, we implemented a basic feed that we can populate with our database for students to be able to view potential employers and alumni in industries they're interested in. In the upcoming weeks, we plan on refining all these features and finishing up the other features we have left and populating the data properly.
