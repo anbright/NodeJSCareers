@@ -2,17 +2,73 @@
 <html>
   <% include partials/head %>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <% include partials/nav %>
 
+    <div class="container">
+      <div class="row">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <b>School</b>
+            </td>
+            <td>
+              <p><%= user.school %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Year</b>
+            </td>
+            <td>
+              <p><%= user.year %></p>
+            </td>
+          </tr>
+          <tr>
+              <td>
+                <b>Gender</b>
+              </td>
+            <td>
+              <p><%= user.gender %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Email</b>
+            </td>
+            <td>
+              <p><%= user.email %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Company</b>
+            </td>
+            <td>
+              <p><%= user.company %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Industry</b>
+            </td>
+            <td>
+              <p><%= user.industry %></p>
+            </td>
+          </tr>
 
-<div>
- <a id="mybutton" href="/signout"">
-  <button>signout</button>
- </a>
-</div>
+        </tbody>
+      </table>
 
+    </div>
 
+    </div>
+
+    <div>
+     <a id="mybutton" href="/signout">
+      <button>signout</button>
+     </a>
+    </div>
 
   </body>
 </html>

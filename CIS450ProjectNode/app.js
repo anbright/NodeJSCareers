@@ -15,7 +15,7 @@ var session = require('express-session')
 
 
 var configDB = require('./config/database.js');
-mongoose.connect(configDB.url); 
+mongoose.connect(configDB.url);
 
 var app = express();
 
@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({secret: 'secret', resave: true, saveUninitialized: true})) //change in production
+app.use(session({secret: 'secret'})) //change in production
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
