@@ -35,7 +35,8 @@ module.exports = function(passport) {
             if (err) {
               throw err;
             }
-            return done(null, newUser)
+            req.session.user = user;
+            return done(null, newUser);
           })
         }
       })
@@ -58,6 +59,7 @@ module.exports = function(passport) {
       if(!user.validPassword(password)) {
         return done(null, false, req.flash('loginMessage', "Email or password is incorrect"))
       }
+      req.session.user = user;
       return done(null, user)
     })
   }))

@@ -12,9 +12,7 @@ var mongoose = require('mongoose')
 var flash = require('connect-flash')
 var session = require('express-session')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var auth = require('./routes/auth');
+
 
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url); 
@@ -33,14 +31,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({secret: 'secret'})) //change in production
+app.use(session({secret: 'secret', resave: true, saveUninitialized: true})) //change in production
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
+
+
+
+// ROUTES
+var index = require('./routes/index');
+var users = require('./routes/users');
+var auth = require('./routes/auth');
+var profile = require('./routes/profile');
+var signout = require('./routes/signout');
+var testrds = require('./routes/testrds');
+
 app.use('/', index);
 app.use('/', auth);
 app.use('/users', users);
+app.use('/profile', profile);
+app.use('/signout', signout);
+app.use('/testrds', testrds);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
