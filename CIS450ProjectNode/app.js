@@ -46,6 +46,8 @@ var auth = require('./routes/auth');
 var profile = require('./routes/profile');
 var signout = require('./routes/signout');
 var testrds = require('./routes/testrds');
+var alumni = require('./routes/alumni');
+var careers = require('./routes/careers');
 
 app.use('/', index);
 app.use('/', auth);
@@ -53,6 +55,10 @@ app.use('/users', users);
 app.use('/profile', profile);
 app.use('/signout', signout);
 app.use('/testrds', testrds);
+app.get('/alumni', alumni);
+app.post('/alumni', alumni);
+app.get('/careers', careers);
+app.post('/careers', careers);
 
 
 // catch 404 and forward to error handler
