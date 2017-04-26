@@ -1,0 +1,124 @@
+<html>
+<meta charset="utf-8">
+<body>
+<style>
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+</style>
+
+
+
+<svg width="1500" height="500"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script> 
+var dataset;
+$.post("/explore", function(data) {
+  var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    radius = 200,
+    g1 = svg.append("g").attr("transform", "translate(" + 300 + "," + height / 2 + ")"),
+    g2 = svg.append("g").attr("transform", "translate(" + 700 + "," + height / 2 + ")"),
+    g3 = svg.append("g").attr("transform", "translate(" + 1100 + "," + height / 2+ ")");
+
+var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+var path = d3.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(radius-120);
+
+var label = d3.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(radius - 70);
+
+var obj = d3.csvParse(data);
+console.log(obj);
+
+var groupByGender = d3.nest()
+  .key(function(d) { return d.gender; })
+  .entries(obj);
+
+var groupBySchool = d3.nest()
+  .key(function(d) { return d.school; })
+  .entries(obj);
+
+var groupByYear = d3.nest()
+  .key(function(d) { return d.year; })
+  .entries(obj);
+
+console.log(groupByGender);
+
+var pie1 = d3.pie()
+  .sort(null)
+  .value(function(d) { return d.values.length; });
+
+var arc1 = g1.selectAll("#arc1")
+  .data(pie1(groupByGender))
+  .enter().append("g")
+    .attr("id", "arc3")
+    .attr("class", "arc");
+
+arc1.append("path")
+    .attr("d", path)
+    .attr("fill", function(d) { return color(d.data.key) });
+
+arc1.append("text")
+    .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+    .attr("dy", "0.35em")
+    .text(function(d) { console.log(d); return d.data.key; });
+
+var pie2 = d3.pie()
+  .sort(null)
+  .value(function(d) { return d.values.length; });
+
+
+var arc2 = g2.selectAll("#arc2")
+  .data(pie2(groupBySchool))
+  .enter().append("g")
+    .attr("id", "arc2")
+    .attr("class", "arc");
+
+arc2.append("path")
+    .attr("d", path)
+    .attr("fill", function(d) { return color(d.data.key) });
+
+arc2.append("text")
+    .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+    .attr("dy", "0.35em")
+    .text(function(d) { console.log(d); return d.data.key; });
+
+var pie3 = d3.pie()
+  .sort(null)
+  .value(function(d) { return d.values.length; });
+
+var arc3 = g3.selectAll("#arc3")
+  .data(pie3(groupByYear))
+  .enter().append("g")
+    .attr("id", "arc3")
+    .attr("class", "arc")
+
+arc3.append("path")
+    .attr("d", path)
+    .attr("fill", function(d) { return color(d.data.key) });
+
+arc3.append("text")
+    .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+    .attr("dy", "0.35em")
+    .text(function(d) { console.log(d); return d.data.key; });
+
+})
+
+
+</script>
+</body>
+</html>

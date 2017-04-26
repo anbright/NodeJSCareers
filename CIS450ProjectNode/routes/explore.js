@@ -3,15 +3,18 @@ var router = express.Router();
 var oracledb = require('oracledb');
 
 
-router.get('/alumni', function(req, res, next) {
-  res.render('alumni', { title: 'alumni' });
+router.get('/explore', function(req, res, next) {
+  res.render('explore', { title: 'explore' });
 });
 
-router.post('/alumni', function(req, res, next) {
-
-  console.log(req.body);
+router.post('/explore', function(req, res, next) {
   var company = req.body.company;
   var industry = req.body.industry;
+  var csvString = "";
+  var query = "";
+  if (req.body.num == 0) {
+  	query = "SELECT industry FROM students";
+  }
   oracledb.getConnection(
     {
       // The connection details to my database
@@ -28,20 +31,37 @@ router.post('/alumni', function(req, res, next) {
       }
       // Executing my SQL SELECT statement against the departments table
       connection.execute(
-        "SELECT * FROM alumni AL WHERE AL.AID IN " + 
-        "( SELECT AID FROM companyemployed ce INNER JOIN company ON company.CID = ce.CID WHERE company.name ='" + company + "')",
+        "SELECT * FROM students WHERE company = 'Google'", 
           function(err, result)
           {
             // If an error happens during the SQL execution, print the error message and return (exit the program)
+            var count = 0;
             if (err) {
               console.error(err.message);
               return;
             }
-            // Print the results into the console
-            res.send(result.rows);
+            csvString += "sid,school,year,gender\n";
+            for (var i = 0; i < result.rows.length; i++) {
+              var row = result.rows[i];
+              for (var j = 0; j < row.length - 1; j++) {
+                  csvString += row[j];
+                  csvString += ",";
+              }
+              csvString += row[row.length - 1];
+              csvString += "\n";
+              count++;
+            }
+            console.log(count);
+            console.log(result.rows.length);
+            if (count == result.rows.length) {
+            	res.send(csvString);
+            }
           });
-          });
-          
+      
       });
+	
+	
+});
+          
 
 module.exports = router;
