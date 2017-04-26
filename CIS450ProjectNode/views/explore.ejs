@@ -1,6 +1,11 @@
 <html>
 <meta charset="utf-8">
 <body>
+
+
+<% include partials/head %>
+<% include partials/nav %>
+
 <style>
 
 .arc text {
@@ -12,11 +17,23 @@
   stroke: #fff;
 }
 
+.topspacer {
+    padding-top: 3em;
+}
+
+.companyhead {
+   padding-bottom: 1em;
+}
+
+.card {
+  padding-left: 2em;
+}
+
 </style>
 
 
 
-<svg width="1500" height="500"></svg>
+<svg class="topspacer" width="1500" height="500"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
