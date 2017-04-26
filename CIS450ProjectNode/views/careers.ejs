@@ -20,27 +20,36 @@
   <body>
   	<div class="container">
   	<div class="topspacer">
-	    <header class="jumbotron hero-spacer">
+	<header class="jumbotron hero-spacer">
+  	<div class="form-inline">
+
 	   	<div><h1>Find Careers </h1></div>
 	    <div class="companyhead"><h4> Filter By Company And Industry </h4></div>
 
 	    <form action="/careers" method="post">
+	    <p> Company </p>
 	    	<select name="company">
 			  <option value="Apple">Apple</option>
 			  <option value="Amazon">Amazon</option>
 			  <option value="Google">Google</option>
 			  <option value="Facebook">Facebook</option>
 			</select>
+		
+		<p style="padding-top: 1em"> Industry </p>
 			<select name="industry">
-			  <option value="tech">tech</option>
+			  <option value="tech">Tech</option>
 			  <option value="Amazon">Amazon</option>
 			  <option value="Google">Google</option>
 			  <option value="Facebook">Facebook</option>
 			</select>
+			<BR>
+			<BR>
 			<input type="submit">
 	    </form>
-	    </header>
     </div>
+	</div>
+    </header>
+
 
     <div class="card" style="width: 20rem;">
 	  <img class="card-img-top" alt="Cat photo">
