@@ -106,8 +106,7 @@ router.post('/', function(req, res, next) {
                                                         console.log(result.rows);
                                                         console.log(type);
 
-                                                        res.send('respond with a body');
-
+                                                        res.redirect('/profile');
                                                     })
 
                                                 } else if (type == "facebook") {
@@ -124,7 +123,7 @@ router.post('/', function(req, res, next) {
                                                         console.log(result.rows);
                                                         console.log(type);
 
-                                                        res.send('respond with a body');
+                                                        res.redirect('/profile');
 
                                                     })
 
@@ -142,7 +141,7 @@ router.post('/', function(req, res, next) {
                                                         console.log(result.rows);
                                                         console.log(type);
 
-                                                        res.send('respond with a body');
+                                                        res.redirect('/profile');
                                                     })
                                                 }
 

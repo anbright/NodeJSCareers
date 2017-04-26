@@ -49,7 +49,7 @@ router.get('/', function(req, res, next) {
               }
             });
           } else {
-            res.send('Error: No user in Students table with that email')
+            res.redirect('/details')
           }
         });
     });
