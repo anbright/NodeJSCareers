@@ -3,6 +3,18 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
+    if (!req.session.user) {
+        res.redirect('/login')
+    }
+
+    res.render('map');
+
+});
+
+
+
+
+router.post('/', function(req, res, next) {
     var oracledb = require('oracledb');
 
     oracledb.getConnection({

@@ -6,18 +6,20 @@ require('../config/passport')(passport)
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
-  if ((req.session != undefined && req.session.user != undefined)) {
-      res.redirect('/profile');
-  }
+    if ((req.session != undefined && req.session.user != undefined)) {
+        res.redirect('/profile');
+    }
 
-  res.render('login', { message: req.flash('loginMessage')});
+    res.render('login', {
+        message: req.flash('loginMessage')
+    });
 
 });
 
 router.post('/login', passport.authenticate('local-login', {
-  successRedirect: '/profile',
-  failureRedirect: '/login',
-  failureFlash: true
+    successRedirect: '/profile',
+    failureRedirect: '/login',
+    failureFlash: true
 }));
 
 
@@ -30,27 +32,33 @@ router.post('/login', passport.authenticate('local-login', {
 
 // OLD
 router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/profile',
-  failureRedirect: '/signup',
-  failureFlash: true,
+    successRedirect: '/profile',
+    failureRedirect: '/signup',
+    failureFlash: true,
 }));
 
 router.get('/signup', function(req, res, next) {
-  res.render('signup', { message: req.flash('signupMessage')});
+    res.render('signup', {
+        message: req.flash('signupMessage')
+    });
 });
 
-router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
-
-router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/profile',
-  failureRedirect: '/',
+router.get('/auth/facebook', passport.authenticate('facebook', {
+    scope: 'email'
 }));
 
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: '/profile',
+    failureRedirect: '/',
+}));
+
+router.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+}));
 
 router.get('/auth/google/callback', passport.authenticate('google', {
-  successRedirect: '/profile',
-  failureRedirect: '/',
+    successRedirect: '/profile',
+    failureRedirect: '/',
 }));
 
 module.exports = router;

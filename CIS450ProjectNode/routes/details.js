@@ -71,9 +71,9 @@ router.post('/', function(req, res, next) {
                         console.error(err.message);
                         return;
                     } else {
-                    	console.log(result);
-		            	console.log(insertStudent);
-                    	console.log("STUDENTS DONE");
+                        console.log(result);
+                        console.log(insertStudent);
+                        console.log("STUDENTS DONE");
                         connection.execute(
                             insertIndus,
                             function(err, result) {
@@ -82,7 +82,7 @@ router.post('/', function(req, res, next) {
                                     console.error(err.message);
                                     return;
                                 } else {
-        	                    	console.log("INDUSTRY DONE")
+                                    console.log("INDUSTRY DONE")
                                     connection.execute(
                                         insertComp,
                                         function(err, result) {
@@ -91,7 +91,7 @@ router.post('/', function(req, res, next) {
                                                 console.error(err.message);
                                                 return;
                                             } else {
-                    	                    	console.log("COMPANY DONE")
+                                                console.log("COMPANY DONE")
                                                 if (type == "local") {
                                                     User.findOneAndUpdate({
                                                         "local.email": email
