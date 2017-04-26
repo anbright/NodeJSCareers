@@ -74,9 +74,10 @@ module.exports = function(passport) {
             clientID: configAuth.facebookAuth.clientID,
             clientSecret: configAuth.facebookAuth.clientSecret,
             callbackURL: configAuth.facebookAuth.callbackURL,
+            passReqToCallback: true,
             profileFields: ['id', 'email', 'first_name', 'last_name']
         },
-        function(token, refreshToken, profile, done) {
+        function(req, token, refreshToken, profile, done) {
             process.nextTick(function() {
                 User.findOne({
                     'facebook.id': profile.id
@@ -85,6 +86,7 @@ module.exports = function(passport) {
                         return done(err)
                     }
                     if (user) {
+                        req.session.user = user;
                         done(null, user)
                     } else {
                         var newUser = new User()
@@ -97,6 +99,7 @@ module.exports = function(passport) {
                             if (err) {
                                 throw (err)
                             }
+                            req.session.user = user;
                             return done(null, newUser)
                         })
                     }
@@ -108,8 +111,9 @@ module.exports = function(passport) {
             clientID: configAuth.googleAuth.clientID,
             clientSecret: configAuth.googleAuth.clientSecret,
             callbackURL: configAuth.googleAuth.callbackURL,
+            passReqToCallback: true
         },
-        function(token, refreshToken, profile, done) {
+        function(req, token, refreshToken, profile, done) {
             process.nextTick(function() {
                 User.findOne({
                     'google.id': profile.id
@@ -117,6 +121,7 @@ module.exports = function(passport) {
                     if (err)
                         return done(err)
                     if (user) {
+                        req.session.user = user
                         return done(null, user)
                     } else {
                         var newUser = new User()
@@ -128,6 +133,7 @@ module.exports = function(passport) {
                         newUser.save(function(err) {
                             if (err)
                                 throw err
+                            req.session.user = user
                             return done(null, newUser)
                         });
                     }

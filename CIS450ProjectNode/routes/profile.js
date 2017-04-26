@@ -4,10 +4,18 @@ var oracledb = require('oracledb')
 
 /* GET profile page. */
 router.get('/', function(req, res, next) {
+  console.log(req.session.user)
     if ((req.session == undefined || req.session.user == undefined)) {
         res.redirect('/login');
     }
-    const user_email = req.session.user.local.email
+
+    if (req.session.user.local) {
+      var user_email = req.session.user.local.email
+    } else if (req.session.user.facebook) {
+      var user_email = req.session.user.facebook.email
+    } else if (req.session.user.google) {
+      var user_email = req.session.user.google.email
+    }
 
     oracledb.getConnection({
             // The connection details to my database
