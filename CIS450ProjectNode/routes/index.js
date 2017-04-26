@@ -5,12 +5,13 @@ var session = require('express-session')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  if ((req.session == undefined || req.session.user == undefined)) {
-  		res.redirect('/login');
-  }
-  else {
-	  res.render('profile', { title: 'profile' });
-  }
+    if ((req.session == undefined || req.session.user == undefined)) {
+        res.redirect('/login');
+    } else {
+        res.render('profile', {
+            title: 'profile'
+        });
+    }
 
 
 });
