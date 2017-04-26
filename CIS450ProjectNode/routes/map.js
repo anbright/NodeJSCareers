@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
+    industry = req.body["industry"];
     var oracledb = require('oracledb');
 
     oracledb.getConnection({
@@ -31,18 +32,25 @@ router.post('/', function(req, res, next) {
             }
             // Executing my SQL SELECT statement against the departments table
             connection.execute(
-                "SELECT * FROM Students",
+                "SELECT * FROM COMPANY WHERE INDUSTRY ='" + industry + "'",
                 function(err, result) {
                     // If an error happens during the SQL execution, print the error message and return (exit the program)
                     if (err) {
                         console.error(err.message);
                         return;
                     }
+                    myJson = []
+                    for (i = 0; i < result.rows.length; i++) {
+                        temp = {"name" : result.rows[i][1], "lat" : result.rows[i][5], "lon" : result.rows[i][6]}
+                        myJson.push(temp);
+                    }
                     // Print the results into the console
-                    console.log(result.rows);
+
+
+                    // CHANGE STUFF HERE TO GET THIS FUCKING JSON
+                    console.log(myJson);
                 });
         });
-
 
     res.send('respond with a aws');
 });
