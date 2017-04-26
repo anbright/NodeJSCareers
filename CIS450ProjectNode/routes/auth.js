@@ -6,7 +6,12 @@ require('../config/passport')(passport)
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
+  if ((req.session != undefined && req.session.user != undefined)) {
+      res.redirect('/profile');
+  }
+
   res.render('login', { message: req.flash('loginMessage')});
+
 });
 
 router.post('/login', passport.authenticate('local-login', {
@@ -15,16 +20,20 @@ router.post('/login', passport.authenticate('local-login', {
   failureFlash: true
 }));
 
+
+// NEW
+// router.post('/signup', function(req, res, next) {
+//   req.session.email = req.body.email
+//   req.session.password = req.body.password
+//   req.session.
+// });
+
+// OLD
 router.post('/signup', passport.authenticate('local-signup', {
   successRedirect: '/profile',
   failureRedirect: '/signup',
   failureFlash: true,
 }));
-
-router.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
 
 router.get('/signup', function(req, res, next) {
   res.render('signup', { message: req.flash('signupMessage')});

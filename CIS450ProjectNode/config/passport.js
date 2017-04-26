@@ -30,6 +30,7 @@ module.exports = function(passport) {
         } else {
           var newUser = new User()
           newUser.local.email = email;
+          newUser.completed = false;
           newUser.local.password = newUser.generateHash(password)
           newUser.save(function(err) {
             if (err) {
@@ -60,6 +61,7 @@ module.exports = function(passport) {
         return done(null, false, req.flash('loginMessage', "Email or password is incorrect"))
       }
       req.session.user = user;
+      
       return done(null, user)
     })
   }))
@@ -84,7 +86,7 @@ module.exports = function(passport) {
           newUser.facebook.token = token
           newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName
           newUser.facebook.email = (profile.emails[0].value || '').toLowerCase()
-
+          newUser.completed = false;
           newUser.save(function(err) {
             if(err) {
               throw(err)
@@ -114,6 +116,7 @@ module.exports = function(passport) {
             newUser.google.token = token
             newUser.google.name = profile.displayName
             newUser.google.email = profile.emails[0].value
+            newUser.completed = false;
             newUser.save(function(err) {
               if (err)
                 throw err

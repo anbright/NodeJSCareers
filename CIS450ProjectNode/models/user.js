@@ -19,6 +19,7 @@ var userSchema = mongoose.Schema({
     email: String,
     name: String,
   },
+  completed: Boolean,
 })
 
 userSchema.methods.generateHash = function(password) {

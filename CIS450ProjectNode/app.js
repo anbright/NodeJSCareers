@@ -46,13 +46,14 @@ var auth = require('./routes/auth');
 var profile = require('./routes/profile');
 var signout = require('./routes/signout');
 var testrds = require('./routes/testrds');
+var details = require('./routes/details');
 
 app.use('/', index);
 app.use('/', auth);
 app.use('/users', users);
 app.use('/profile', profile);
 app.use('/signout', signout);
-app.use('/testrds', testrds);
+app.use('/details', details);
 
 
 // catch 404 and forward to error handler
