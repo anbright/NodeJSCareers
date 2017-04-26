@@ -15,7 +15,7 @@ var session = require('express-session')
 
 
 var configDB = require('./config/database.js');
-mongoose.connect(configDB.url); 
+mongoose.connect(configDB.url);
 
 var app = express();
 
@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({secret: 'secret', resave: true, saveUninitialized: true})) //change in production
+app.use(session({secret: 'secret'})) //change in production
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
@@ -47,6 +47,8 @@ var profile = require('./routes/profile');
 var signout = require('./routes/signout');
 var testrds = require('./routes/testrds');
 var details = require('./routes/details');
+var alumni = require('./routes/alumni');
+var careers = require('./routes/careers');
 
 app.use('/', index);
 app.use('/', auth);
@@ -54,6 +56,11 @@ app.use('/users', users);
 app.use('/profile', profile);
 app.use('/signout', signout);
 app.use('/details', details);
+app.use('/testrds', testrds);
+app.get('/alumni', alumni);
+app.post('/alumni', alumni);
+app.get('/careers', careers);
+app.post('/careers', careers);
 
 
 // catch 404 and forward to error handler
