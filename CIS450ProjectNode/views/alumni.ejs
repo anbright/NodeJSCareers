@@ -5,7 +5,6 @@
 
   <% include partials/head %>
   <% include partials/nav %>
-<link rel="stylesheet" type="text/css" href="public/stylesheets/css/alumni.css">
 <style>
 .topspacer {
     padding-top: 5em;
@@ -20,6 +19,37 @@
 
   	<% var industryNames = ['Accounting & Legal', 'Aerospace & Defense', 'Architecture & Civil Engineering', 'Arts & Entertainment', 'Automotive', 'Banking & Financial Services', 'Beauty & Fitness', 'Biotech & Pharmaceuticals', 'Business Services', 'Computer Software & Hardware', 'Construction', 'Consulting', 'Consumer Electronics', 'Consumer Services', 'Education & Schools', 'Energy & Utilities', 'Facilities', 'Farming & Agriculture', 'Government', 'Health Care & Hospitals', 'Information Technology', 'Insurance', 'Internet & Tech', 'Manufacturing', 'Marketing & Advertising', 'Media & Publishing', 'Nonprofit', 'Private Security', 'Real Estate', 'Recruiting & Staffing', 'Restaurants & Bars', 'Retail', 'Supermarkets', 'Telecommunications', 'Transportation & Logistics', 'Travel & Tourism', 'Wholesale'] %>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <script>
+		var submission = function() {
+			event.preventDefault();
+			console.log('this is called');
+		    var val = $('#companyList').val();
+
+		   $.post("/alumni", { 'company' : val }, function(data, err) {
+		   		console.log(data);
+		   		$('.card').remove();
+		   		for(var i = 0; i < data.length; i++) {
+		   			var str = "<div class='card' style='width: 20rem; float:left'>" + 
+							  "<img class='card-img-top' alt='Cat photo'>" +
+							  "<div class='card-block'>" +
+							    "<h4 class='card-title'>" + data[i][1] + "</h4>" +
+							    "<p class='card-text'>" + data[i][2] + "</p>" +
+							    "<p class='card-text'>" + data[i][3] + "</p>" + 
+							    "<a href='#'' class='btn btn-primary'>Learn more</a>" +
+							  "</div>" +
+							"</div>" + 
+						"</div>"
+		   			$('body').append(str);
+		   		}
+
+		   })
+
+
+		    
+		}
+	</script>
   <body>
     <div class="container">
     <div class="topspacer">
@@ -28,9 +58,9 @@
   	<div class="form-inline">
   		<div> <h1> Find Alumni </h1> </div>
   		<div class="companyhead"><h4> Fiter By Company And Industry </h4></div>
-	    <form action="/alumni" method="post">
+	    <form id="myForm"  action="/alumni" method="post" onsubmit="submission()">
 	  		<p> Company </p>
-	    	<select id="companyList" class="form-control col-8" onchange="this.form.submit()" name="company">
+	    	<select id="companyList" class="form-control col-8" name="company">
 	    		<% for(var i=0; i<companyNames.length; i++) {%>
 				   <option value=<%=companyNames[i]%>><%= companyNames[i] %></li>
 				<% } %>
@@ -44,22 +74,18 @@
 			</select>
 			<br>
 			<br>
-			<input type="submit">
+			<input id="submitBtn" type="submit">
+
 	    </form>
 	 </div>
 	</div>
 
 	</header>
 
-    <div class="card" style="width: 20rem;">
-	  <img class="card-img-top" alt="Cat photo">
-	  <div class="card-block">
-	    <h4 class="card-title">{ Insert Alumni Name }</h4>
-	    <p class="card-text">School</p>
-	    <p class="card-text">Company</p>
-	    <a href="#" class="btn btn-primary">Learn more</a>
-	  </div>
-	</div>
+	
+
+	
+
 
 	</div>
 

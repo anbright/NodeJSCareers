@@ -11,8 +11,8 @@ router.get('/careers', function(req, res, next) {
 
 router.post('/careers', function(req, res, next) {
 
-    console.log(req.body.Company);
-    var company = req.body.Company;
+    console.log(req.body.company);
+    var company = req.body.company;
     oracledb.getConnection({
             // The connection details to my database
             user: "cis450project",
@@ -27,7 +27,8 @@ router.post('/careers', function(req, res, next) {
             }
             // Executing my SQL SELECT statement against the departments table
             connection.execute(
-                "SELECT * FROM Alumni WHERE company='" + company + "'",
+                "SELECT * FROM postings P WHERE P.PID IN " +
+                "( SELECT PID FROM postedby pb INNER JOIN company ON company.CID = pb.CID WHERE company.name ='" + company + "')",
                 function(err, result) {
                     // If an error happens during the SQL execution, print the error message and return (exit the program)
                     if (err) {
