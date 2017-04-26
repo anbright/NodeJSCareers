@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
         res.redirect('/login')
     }
 
-    res.render('map');
+    res.render('map', {myJson: []});
 
 });
 
@@ -45,14 +45,13 @@ router.post('/', function(req, res, next) {
                         myJson.push(temp);
                     }
                     // Print the results into the console
-
+                    res.render("map", {myJson : myJson});
 
                     // CHANGE STUFF HERE TO GET THIS FUCKING JSON
                     console.log(myJson);
                 });
         });
 
-    res.send('respond with a aws');
 });
 
 module.exports = router;
