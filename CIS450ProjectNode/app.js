@@ -48,6 +48,7 @@ var details = require('./routes/details');
 var alumni = require('./routes/alumni');
 var careers = require('./routes/careers');
 var explore = require('./routes/explore');
+var map = require('./routes/map');
 
 app.use('/', index);
 app.use('/', auth);
@@ -62,6 +63,7 @@ app.get('/careers', careers);
 app.post('/careers', careers);
 app.get('/explore', explore);
 app.post('/explore', explore);
+app.use('/map', map);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
