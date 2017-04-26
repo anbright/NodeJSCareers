@@ -4,22 +4,63 @@
 <html>
 
   <% include partials/head %>
-  
+  <% include partials/nav %>
+
+  <style>
+.topspacer {
+    padding-top: 5em;
+}
+
+.companyhead {
+	padding-bottom: 1em;
+}
+</style>
+
+
   <body>
-    <form action="/careers" method="post">
-    	<select name="company">
-		  <option value="Apple">Apple</option>
-		  <option value="Amazon">Amazon</option>
-		  <option value="Google">Google</option>
-		  <option value="Facebook">Facebook</option>
-		</select>
-		<select name="industry">
-		  <option value="tech">tech</option>
-		  <option value="Amazon">Amazon</option>
-		  <option value="Google">Google</option>
-		  <option value="Facebook">Facebook</option>
-		</select>
-		<input type="submit">
-    </form>
+  	<div class="container">
+  	<div class="topspacer">
+	<header class="jumbotron hero-spacer">
+  	<div class="form-inline">
+
+	   	<div><h1>Find Careers </h1></div>
+	    <div class="companyhead"><h4> Filter By Company And Industry </h4></div>
+
+	    <form action="/careers" method="post">
+	    <p> Company </p>
+	    	<select name="company">
+			  <option value="Apple">Apple</option>
+			  <option value="Amazon">Amazon</option>
+			  <option value="Google">Google</option>
+			  <option value="Facebook">Facebook</option>
+			</select>
+		
+		<p style="padding-top: 1em"> Industry </p>
+			<select name="industry">
+			  <option value="tech">Tech</option>
+			  <option value="Amazon">Amazon</option>
+			  <option value="Google">Google</option>
+			  <option value="Facebook">Facebook</option>
+			</select>
+			<BR>
+			<BR>
+			<input type="submit">
+	    </form>
+    </div>
+	</div>
+    </header>
+
+
+    <div class="card" style="width: 20rem;">
+	  <img class="card-img-top" alt="Cat photo">
+	  <div class="card-block">
+	    <h4 class="card-title">{ Insert Company Name }</h4>
+	    <p class="card-text">Date Posted</p>
+	    <p class="card-text">Job Position</p>
+	    <a href="#" class="btn btn-primary">Learn more</a>
+	  </div>
+	</div>
+
+	</div>
   </body>
 </html>
