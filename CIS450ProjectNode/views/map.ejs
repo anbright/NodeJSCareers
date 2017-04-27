@@ -2,10 +2,13 @@
 <!-- Latest compiled and minified CSS -->
 
 <html>
+    <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script>
 
   <% include partials/head %>
   <% include partials/nav %>
-<link rel="stylesheet" type="text/css" href="public/stylesheets/css/alumni.css">
+
+
 <style>
 .topspacer {
     padding-top: 5em;
@@ -30,7 +33,7 @@
 			<p style="padding-top: 1em"> Industry </p>
 			<select id="industryList" class="form-control col-4" name="industry">
 			  <% for(var i=0; i<industryNames.length; i++) {%>
-				   <option value=<%=industryNames[i]%>><%= industryNames[i] %></li>
+				   <option value= '<%=industryNames[i]%>'> <%= industryNames[i] %></li>
 				<% } %>
 			</select>
 			<br>
@@ -40,9 +43,71 @@
 	 </div>
 	</div>
 
-			  <% for(var i=0; i<myJson.length; i++) {%>
-				   <%= myJson[i].name %>
-				<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="map" style="width: 800px; height: 440px; border: 1px solid #AAA;"></div>
+
+
+	<script type="text/javascript">
+		
+
+
+
+var map = L.map( 'map', {
+  center: [20.0, 5.0],
+  minZoom: 2,
+  zoom: 2
+})
+
+L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  subdomains: ['a', 'b', 'c']
+}).addTo( map )
+
+
+var myIcon = L.icon({
+  iconUrl: 'https://lh4.ggpht.com/Tr5sntMif9qOPrKV_UVl7K8A_V3xQDgA7Sw_qweLUFlg76d_vGFA7q1xIKZ6IcmeGqg=w300',
+  iconRetinaUrl: 'https://lh4.ggpht.com/Tr5sntMif9qOPrKV_UVl7K8A_V3xQDgA7Sw_qweLUFlg76d_vGFA7q1xIKZ6IcmeGqg=w300',
+  iconSize: [29, 24],
+  iconAnchor: [9, 21],
+  popupAnchor: [0, -14]
+})
+
+
+<% for(var i=0; i<myJson.length ; i++) {%>
+ a = <%- JSON.stringify(myJson[i]) %>
+ L.marker( [a.lat, a.lon], {icon: myIcon} )
+  .bindPopup( '<label>' + a.name + '</label>')
+  .addTo( map );
+<% } %>
+
+
+
+	</script>
+
+
+
+
+
+
 
 
 
