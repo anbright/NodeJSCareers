@@ -74,16 +74,16 @@
 
     </div>
 
-
-
-    <div>
-     <a style="padding-left: 8em" id="mybutton" href="/signout">
-      <button>Sign-out</button>
-     </a>
-    </div>
-
     <br  />
 
+    <div class="row">
+      <div class="col-md-12" id="twitterList">
+        <h3>Recent tweets about: <%= user.company %></h3>
+      </div>
+      <!-- <div class="col-md-6" id="twitterIndustryList">
+        <h3>Recent tweets about: </h3>
+      </div> -->
+    </div>
 
     <div class="row">
       <div id="alumniList" class="col-md-6">
@@ -94,6 +94,8 @@
       </div>
     </div>
   </div>
+
+
 
 
     <script>
@@ -136,6 +138,22 @@
   		   		}
 
   		   })
+
+         $.post("/profile/twitter", { 'query' : '<%= user.company%>' }, function(data, err) {
+           console.log(data)
+           var statuses = data.statuses
+           for (var i = 0; i < statuses.length; i++) {
+             $('#twitterList').append('<p>'+ statuses[i].text+'</p><hr/>')
+           }
+  		   })
+
+        //  $.post("/profile/twitter", { 'query' : '<%= user.industry%>' }, function(data, err) {
+        //    console.log(data)
+        //    var statuses = data.statuses
+        //    for (var i = 0; i < statuses.length; i++) {
+        //      $('#twitterIndustryList').append('<p>'+ statuses[i].text+'</p><hr/>')
+        //    }
+  		  //  })
 
       })
 

@@ -11,9 +11,6 @@ router.get('/', function(req, res, next) {
 
 });
 
-
-
-
 router.post('/', function(req, res, next) {
     industry = req.body["industry"];
     var oracledb = require('oracledb');
