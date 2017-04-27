@@ -70,9 +70,6 @@ router.post('/', function(req, res, next) {
                     }
                     // Print the results into the console
                     res.send(result.rows);
-                    console.log(result)
-                    // CHANGE STUFF HERE TO GET THIS FUCKING JSON
-                    console.log(myJson);
                 });
         });
 
