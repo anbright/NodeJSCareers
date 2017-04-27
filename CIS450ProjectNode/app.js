@@ -38,7 +38,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 app.use(function (req, res, next) {
-  // console.log(req.session.user)
   res.locals.login = (req.session.user == undefined);
   next();
 });

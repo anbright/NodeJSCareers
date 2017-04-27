@@ -2,8 +2,27 @@ var express = require('express');
 var router = express.Router();
 var oracledb = require('oracledb')
 
+var Twitter = require('twitter');
 
+var client = new Twitter({
+  consumer_key: 'p13t3YNd2my8InWieJb8YzPjh',
+  consumer_secret: '0gsbfReV0stQ2mTeTiphltr4LCqPvQ2CeixVnsqG8EMzrgQdFy',
+  access_token_key: '783011073490288640-wVEaFtvRWbdvAegyZYYMSFahpLQcGpm',
+  access_token_secret: 'LjRirwZ0GEQcpmmmwrHS9SvRr7zJMtiGcQ9iJgH7ih56r'
+});
 
+router.post('/twitter', function(req, res, next) {
+  var query = req.body.query
+  var params = {q: query};
+  client.get('search/tweets', params, function(error, tweets, response) {
+    if (!error) {
+      console.log(tweets);
+      res.send(tweets)
+    } else {
+      return;
+    }
+  });
+})
 
 /* GET profile page. */
 router.get('/', function(req, res, next) {
