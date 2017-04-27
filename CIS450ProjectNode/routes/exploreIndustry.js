@@ -7,10 +7,14 @@ router.get('/explore', function(req, res, next) {
   res.render('explore', { title: 'explore' });
 });
 
-router.post('/explore', function(req, res, next) {
+router.post('/exploreIndustry', function(req, res, next) {
   var company = req.body.company;
-  console.log(company);
+  var industry = req.body.industry;
   var csvString = "";
+  var query = "";
+
+  console.log(req.body);
+  console.log(company);
   oracledb.getConnection(
     {
       // The connection details to my database
@@ -22,18 +26,19 @@ router.post('/explore', function(req, res, next) {
     {
       // If an error happens during establishing the connection, print the error message and return (exit the program)
       if (err) {
-
         console.error(err.message);
         return;
       }
       // Executing my SQL SELECT statement against the departments table
       connection.execute(
-        "SELECT * FROM students S WHERE S.company='" + company + "'", 
+        "SELECT * FROM students S WHERE S.industry IN " + 
+        "(SELECT industry.name FROM companyindustry CI INNER JOIN industry ON industry.IID = CI.IID INNER JOIN company ON company.CID = CI.CID "
+        + "WHERE company.name='" + company + "')", 
           function(err, result)
           {
+
             // If an error happens during the SQL execution, print the error message and return (exit the program)
             var count = 0;
-            console.log(result);
             if (err) {
               console.error(err.message);
               return;
