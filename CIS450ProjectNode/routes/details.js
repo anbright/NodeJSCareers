@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user')
 var oracledb = require('oracledb')
-
+oracledb.maxRows = 1001
 
 /* GET profile page. */
 router.get('/', function(req, res, next) {

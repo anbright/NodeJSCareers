@@ -1,12 +1,38 @@
 var express = require('express');
 var router = express.Router();
 var oracledb = require('oracledb');
-
+oracledb.maxRows = 1500;
 
 router.get('/careers', function(req, res, next) {
-    res.render('careers', {
-        title: 'alumni'
-    });
+  oracledb.getConnection({
+          // The connection details to my database
+          user: "cis450project",
+          password: "tahmidisabitch",
+          connectString: "cis450project.creb8qtnnbvb.us-west-2.rds.amazonaws.com:1521/DBPROJ"
+      },
+      function(err, connection) {
+          // If an error happens during establishing the connection, print the error message and return (exit the program)
+          if (err) {
+              console.error(err.message);
+              return;
+          }
+          // Executing my SQL SELECT statement against the departments table
+          connection.execute(
+              "SELECT NAME FROM COMPANY ORDER BY NAME ASC",
+              function(err, result) {
+                  // If an error happens during the SQL execution, print the error message and return (exit the program)
+                  if (err) {
+                      console.error(err.message);
+                      return;
+                  }
+                  console.log(result)
+                  res.render('careers', {
+                      title: 'alumni',
+                      companies: result.rows
+                  });
+              });
+      });
+
 });
 
 router.post('/careers', function(req, res, next) {
