@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <% include partials/head %>
-  <% include partials/nav %>
 
 <style>
 .topspacer {
@@ -12,8 +11,6 @@
   padding-bottom: 1em;
 }
 </style>
-
-
 
   <body>
     <% include partials/nav %>
@@ -77,7 +74,7 @@
 
     </div>
 
-    </div>
+
 
     <div>
      <a style="padding-left: 8em" id="mybutton" href="/signout">
@@ -87,6 +84,7 @@
 
     <br  />
 
+
     <div class="row">
       <div id="alumniList" class="col-md-6">
         <h3>Alumni at: <%= user.company %></h3>
@@ -95,6 +93,7 @@
         <h3>Companies in: <%= user.industry %></h3>
       </div>
     </div>
+  </div>
 
 
     <script>
@@ -142,6 +141,7 @@
 
 
   	</script>
+
 
   </body>
 </html>

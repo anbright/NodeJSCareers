@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var oracledb = require('oracledb')
 
+
+
+
 /* GET profile page. */
 router.get('/', function(req, res, next) {
   console.log(req.session.user)

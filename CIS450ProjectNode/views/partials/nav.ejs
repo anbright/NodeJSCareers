@@ -38,13 +38,21 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
+                  <% if (login) { %>
                     <li>
                         <a href="/Signup">Sign-up</a>
                     </li>
                     <li>
                         <a href="/Login">Login</a>
                     </li>
-                    
+                  <% } else { %>
+                    <li>
+                      <a style="padding-left: 8em" id="mybutton" href="/signout">
+                       Sign Out
+                      </a>
+                    </li>
+                  <% } %>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
