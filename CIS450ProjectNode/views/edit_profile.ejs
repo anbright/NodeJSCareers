@@ -3,14 +3,64 @@
 
   <body>
     <div class="container">
-      <div class="text-center">
+    <form>
+      <div class="row">
         <h1>Edit Profile</h1>
-      </div>
-      <form>
-        <div class="form-control">
-          <label>School</label>
-          <input type="text" name="school"  />
-        </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <b>School</b>
+            </td>
+            <td>
+              <p><%= user.school %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Year</b>
+            </td>
+            <td>
+              <p><%= user.year %></p>
+            </td>
+          </tr>
+          <tr>
+              <td>
+                <b>Gender</b>
+              </td>
+            <td>
+              <p><%= user.gender %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Email</b>
+            </td>
+            <td>
+              <p><%= user.email %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Company</b>
+            </td>
+            <td>
+              <p><%= user.company %></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Industry</b>
+            </td>
+            <td>
+              <p><%= user.industry %></p>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
 
       </form>
     </div>
