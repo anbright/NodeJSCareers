@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var oracledb = require('oracledb');
 
 
 router.get('/', function(req, res, next) {
@@ -7,7 +8,32 @@ router.get('/', function(req, res, next) {
         res.redirect('/login')
     }
 
-    res.render('company', {myJson: []});
+    oracledb.getConnection({
+            // The connection details to my database
+            user: "cis450project",
+            password: "tahmidisabitch",
+            connectString: "cis450project.creb8qtnnbvb.us-west-2.rds.amazonaws.com:1521/DBPROJ"
+        },
+        function(err, connection) {
+            // If an error happens during establishing the connection, print the error message and return (exit the program)
+            if (err) {
+                console.error(err.message);
+                return;
+            }
+            // Executing my SQL SELECT statement against the departments table
+            connection.execute(
+                "SELECT DISTINCT INDUSTRY FROM COMPANY ORDER BY INDUSTRY ASC",
+                function(err, result) {
+                    // If an error happens during the SQL execution, print the error message and return (exit the program)
+                    if (err) {
+                        console.error(err.message);
+                        return;
+                    }
+                    res.render('company', {myJson: [], industries: result.rows});
+                });
+        });
+
+
 
 });
 
@@ -16,8 +42,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     industry = req.body["industry"];
-    var oracledb = require('oracledb');
-
     oracledb.getConnection({
             // The connection details to my database
             user: "cis450project",
@@ -45,8 +69,8 @@ router.post('/', function(req, res, next) {
                         myJson.push(temp);
                     }
                     // Print the results into the console
-                    res.render("company", {myJson : myJson});
-
+                    res.send(result.rows);
+                    console.log(result)
                     // CHANGE STUFF HERE TO GET THIS FUCKING JSON
                     console.log(myJson);
                 });

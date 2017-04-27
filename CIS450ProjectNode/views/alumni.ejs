@@ -24,7 +24,7 @@
   	<% var industryNames = ['Accounting & Legal', 'Aerospace & Defense', 'Architecture & Civil Engineering', 'Arts & Entertainment', 'Automotive', 'Banking & Financial Services', 'Beauty & Fitness', 'Biotech & Pharmaceuticals', 'Business Services', 'Computer Software & Hardware', 'Construction', 'Consulting', 'Consumer Electronics', 'Consumer Services', 'Education & Schools', 'Energy & Utilities', 'Facilities', 'Farming & Agriculture', 'Government', 'Health Care & Hospitals', 'Information Technology', 'Insurance', 'Internet & Tech', 'Manufacturing', 'Marketing & Advertising', 'Media & Publishing', 'Nonprofit', 'Private Security', 'Real Estate', 'Recruiting & Staffing', 'Restaurants & Bars', 'Retail', 'Supermarkets', 'Telecommunications', 'Transportation & Logistics', 'Travel & Tourism', 'Wholesale'] %>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  
+
   <script>
 		var submission = function() {
 			event.preventDefault();
@@ -35,15 +35,15 @@
 		   		console.log(data);
 		   		$('.card').remove();
 		   		for(var i = 0; i < data.length; i++) {
-		   			var str = "<div class='card' style='width: 20rem; float:left'>" + 
+		   			var str = "<div class='card' style='width: 20rem; float:left'>" +
 							  "<img src='http://www.michaeltsarion.com/uploads/3/1/3/5/31352851/2863928_1_orig.jpg' class='card-img-top' alt='Cat photo'>" +
 							  "<div class='card-block'>" +
 							    "<h4 class='card-title'>" + data[i][1] + "</h4>" +
 							    "<p class='card-text'>" + data[i][2] + "</p>" +
-							    "<p class='card-text'>" + data[i][3] + "</p>" + 
+							    "<p class='card-text'>" + data[i][3] + "</p>" +
 							    "<a href='#'' class='btn btn-primary'>Learn more</a>" +
 							  "</div>" +
-							"</div>" + 
+							"</div>" +
 						"</div>"
 		   			$('body').append(str);
 		   		}
@@ -51,7 +51,7 @@
 		   })
 
 
-		    
+
 		}
 	</script>
   <body>
@@ -65,10 +65,10 @@
 	    <form id="myForm"  action="/alumni" method="post" onsubmit="submission()">
 	  		<p> Company </p>
 	    	<select id="companyList" class="form-control col-8" name="company">
-	    		<% for(var i=0; i<companyNames.length; i++) {%>
-				   <option value=<%=companyNames[i]%>><%= companyNames[i] %></li>
-				<% } %>
-			  
+            <% for(var i=0; i<companies.length; i++) {%>
+             <option value=<%=companies[i][0]%>><%= companies[i][0] %></option>
+          <% } %>
+
 			</select>
 			<p style="padding-top: 1em"> Industry </p>
 			<select id="industryList" class="form-control col-4" name="industry">
@@ -86,13 +86,13 @@
 
 	</header>
 
-	
 
-	
+
+
 
 
 	</div>
 
-	
+
   </body>
 </html>
