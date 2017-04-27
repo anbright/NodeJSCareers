@@ -39,10 +39,14 @@ router.post('/', function(req, res, next) {
                         console.error(err.message);
                         return;
                     }
+                    console.log(industry)
+
                     myJson = []
                     for (i = 0; i < result.rows.length; i++) {
-                        temp = {"name" : result.rows[i][1], "lat" : result.rows[i][5], "lon" : result.rows[i][6]}
-                        myJson.push(temp);
+                        if (result.rows[i][5] != null && result.rows[i][6] != null && result.rows[i][1] != null) {
+                            temp = {"name" : result.rows[i][1], "lat" : result.rows[i][5], "lon" : result.rows[i][6]}
+                            myJson.push(temp);
+                        }
                     }
                     // Print the results into the console
                     res.render("map", {myJson : myJson});
